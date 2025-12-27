@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Contact Us</h1>
+
+  {% if success %}
+    <div class="alert alert-success" role="alert">Thank you — your message was submitted.</div>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+
+    {% if form.non_field_errors %}
+      <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+    {% endif %}
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="id_name" class="form-label">Name</label>
+        {{ form.name }}
+        {% if form.name.errors %}
+          <div class="text-danger small">{{ form.name.errors }}</div>
+        {% endif %}
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="id_email" class="form-label">Email</label>
+        {{ form.email }}
+        {% if form.email.errors %}
+          <div class="text-danger small">{{ form.email.errors }}</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="id_subject" class="form-label">Subject</label>
+      {{ form.subject }}
+      {% if form.subject.errors %}
+        <div class="text-danger small">{{ form.subject.errors }}</div>
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      <label for="id_message" class="form-label">Message</label>
+      {{ form.message }}
+      {% if form.message.errors %}
+        <div class="text-danger small">{{ form.message.errors }}</div>
+      {% endif %}
+    </div>
+
+    <button type="submit" class="btn btn-danger">Send Message</button>
+  </form>
+
+{% endblock %}

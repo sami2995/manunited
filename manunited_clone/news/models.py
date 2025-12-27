@@ -23,3 +23,16 @@ class NewsArticle(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=200)
+    email = models.EmailField()
+    subject = models.CharField(max_length=200, blank=True)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    handled = models.BooleanField(default=False)
+
+    def __str__(self):
+        subject = (self.subject[:30] + '...') if self.subject and len(self.subject) > 30 else (self.subject or '')
+        return f"{self.name} <{self.email}> - {subject}"
