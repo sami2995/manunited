@@ -36,3 +36,17 @@ class Contact(models.Model):
     def __str__(self):
         subject = (self.subject[:30] + '...') if self.subject and len(self.subject) > 30 else (self.subject or '')
         return f"{self.name} <{self.email}> - {subject}"
+
+
+class Comment(models.Model):
+    article = models.ForeignKey(
+        NewsArticle,
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
+    email = models.EmailField()
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.email} on {self.article.title}"

@@ -12,4 +12,40 @@
   <p>{{ article.content }}</p>
 
   <a href="/" class="btn btn-outline-danger mt-3">← Back to Home</a>
+  
+  <section class="comments mt-5">
+    <h4 class="mb-4">Leave a Comment</h4>
+
+    {% if comment_success %}
+    <div class="alert alert-success">Comment posted successfully.</div>
+    {% endif %}
+
+    <form method="post" class="mb-5">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <input type="email" name="user_email" class="form-control" placeholder="please insert your email">
+      </div>
+      <div class="mb-3">
+        <textarea class="form-control" name="user_comment" rows="3" placeholder="Join the discussion..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Post Comment</button>
+    </form>
+
+    {% for single_comment in comments %}
+    <div class="d-flex mb-4">
+      <div class="flex-shrink-0">
+        <img src="https://ui-avatars.com/api/?name=User" class="rounded-circle" width="50" alt="User">
+      </div>
+      <div class="ms-3">
+        <h6 class="fw-bold mb-1">{{ single_comment.email }}<small class="text-muted fw-normal ms-2">{{ single_comment.created_at|timesince }} ago</small></h6>
+        <p>{{ single_comment.comment }}</p>
+      </div>
+
+    </div>
+    {% empty %}
+    <p class="text-muted">Be the first to comment.</p>
+    {% endfor %}
+
+  </section>
 {% endblock %}
