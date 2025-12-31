@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h4 class="mb-3">Message from {{ contact.name }}</h4>
+          <p><strong>Email:</strong> {{ contact.email }}</p>
+          <p><strong>Subject:</strong> {{ contact.subject }}</p>
+          <hr>
+          <p>{{ contact.message }}</p>
+
+          <div class="d-flex justify-content-between mt-4">
+            <a href="{% url 'news:contact_list' %}" class="btn btn-secondary">Back</a>
+            <a href="{% url 'news:contact_delete' contact.pk %}" class="btn btn-danger">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

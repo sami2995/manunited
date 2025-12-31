@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between mb-3">
+        <h3>Comments</h3>
+    </div>
+
+    <table class="table table-bordered bg-white">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Email</th>
+                <th>Article</th>
+                <th>Comment</th>
+                <th width="180">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in comments %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ c.email }}</td>
+                <td>{{ c.article.title }}</td>
+                <td>{{ c.comment|truncatechars:80 }}</td>
+                <td>
+                    <a href="{% url 'news:comment_edit' c.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'news:comment_delete' c.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="text-center">No comments yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between mb-3">
+        <h3>Categories</h3>
+        <a class="btn btn-primary" href="{% url 'news:category_add' %}">Add Category</a>
+    </div>
+
+    <table class="table table-bordered bg-white">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th width="180">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for single in categories %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ single.name }}</td>
+                <td>
+                    <a href="{% url 'news:category_edit' single.pk %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'news:category_delete' single.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3" class="text-center">No categories yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
